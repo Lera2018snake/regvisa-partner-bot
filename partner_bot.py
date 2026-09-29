@@ -1,3 +1,4 @@
+import os
 import asyncio
 import logging
 import sqlite3
@@ -8,9 +9,14 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.storage.memory import MemoryStorage
 
-# === НАСТРОЙКИ ===
-BOT_TOKEN = "8888992490:AAGCoa3etQra_8ycmlG5zLXdvRt8fotLBmY"
-ADMIN_ID = 729311849
+# === НАСТРОЙКИ (берутся из переменных окружения) ===
+BOT_TOKEN = os.environ.get("BOT_TOKEN")
+ADMIN_ID = int(os.environ.get("ADMIN_ID"))
+
+if not BOT_TOKEN:
+    raise ValueError("Переменная окружения BOT_TOKEN не задана!")
+if not ADMIN_ID:
+    raise ValueError("Переменная окружения ADMIN_ID не задана!")
 
 logging.basicConfig(level=logging.INFO)
 
